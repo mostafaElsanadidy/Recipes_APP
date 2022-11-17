@@ -14,9 +14,10 @@ struct Constants {
     static let randomQueue =  DispatchQueue(label: "randomQueue", qos: .utility)
     
     struct ProductionServer {
-        static let baseURL = "https://api.edamam.com/api"
+        static let baseURL = "https://api.edamam.com/api/recipes/v2"
         static let app_id = "00ffed0e"
         static let app_key = "6b16b316d1d7b893172c23749c1f6081"
+        
     }
     
     enum APIParameters :String{
@@ -24,6 +25,12 @@ struct Constants {
         case code
         case token
         case status_code
+    }
+    
+    enum QueryType :String{
+        case publico = "public"
+        case user = "user"
+        case any = "any"
     }
     
     enum HTTPHeaderField: String {

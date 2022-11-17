@@ -7,6 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1493A37AC62ABAFE52A0CEB1 /* Pods_Recipes_APP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C68B38FC29064C9CD4FA4B /* Pods_Recipes_APP.framework */; };
+		ED119CFA2923A0B500161D09 /* AppDelegate_S.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED119CF82923A0B400161D09 /* AppDelegate_S.swift */; };
+		ED119CFB2923A0B500161D09 /* UIWindow_S.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED119CF92923A0B500161D09 /* UIWindow_S.swift */; };
+		ED119D0A2923A1E100161D09 /* HomeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED119CFF2923A1E000161D09 /* HomeVC.xib */; };
+		ED119D0B2923A1E100161D09 /* RecipeDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED119D012923A1E000161D09 /* RecipeDetailsCell.swift */; };
+		ED119D0C2923A1E100161D09 /* RecipeDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED119D022923A1E000161D09 /* RecipeDetailsCell.xib */; };
+		ED119D0D2923A1E100161D09 /* OptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED119D042923A1E100161D09 /* OptionCell.swift */; };
+		ED119D0E2923A1E100161D09 /* OptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED119D052923A1E100161D09 /* OptionCell.xib */; };
+		ED119D142923A1F900161D09 /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED119D122923A1F900161D09 /* AlertVC.swift */; };
+		ED119D152923A1F900161D09 /* AlertVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED119D132923A1F900161D09 /* AlertVC.xib */; };
+		ED119D182923A57500161D09 /* VC+CoreDataProcesses(CRUD).swift in Sources */ = {isa = PBXBuildFile; fileRef = ED119D172923A57500161D09 /* VC+CoreDataProcesses(CRUD).swift */; };
+		ED4248D52924E0D700F53D2B /* RecipeDetailsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED4248D32924E0D600F53D2B /* RecipeDetailsVC.xib */; };
+		ED4248D62924E0D700F53D2B /* RecipeDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4248D42924E0D600F53D2B /* RecipeDetailsVC.swift */; };
+		ED4248D82924E5D400F53D2B /* DetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4248D72924E5D400F53D2B /* DetailsRouter.swift */; };
+		ED4248DA2924E72600F53D2B /* RecipeDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4248D92924E72600F53D2B /* RecipeDetailsPresenter.swift */; };
+		ED4248DC2924E74300F53D2B /* RecipeDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4248DB2924E74300F53D2B /* RecipeDetailsInteractor.swift */; };
+		ED7EDAA82924B8B000F49624 /* HeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED7EDAA62924B8B000F49624 /* HeadView.xib */; };
+		ED7EDAA92924B8B000F49624 /* HeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7EDAA72924B8B000F49624 /* HeadView.swift */; };
+		EDA624AB29234C5C00DAFF86 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = EDA624AA29234C5C00DAFF86 /* Podfile */; };
 		EDAC52D52922CA02007F4984 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC52D42922CA02007F4984 /* AppDelegate.swift */; };
 		EDAC52D72922CA02007F4984 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC52D62922CA02007F4984 /* SceneDelegate.swift */; };
 		EDAC52D92922CA02007F4984 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC52D82922CA02007F4984 /* ViewController.swift */; };
@@ -54,12 +73,11 @@
 		EDAC53552922CAD0007F4984 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC53302922CACF007F4984 /* Extensions.swift */; };
 		EDAC53562922CAD0007F4984 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC53312922CACF007F4984 /* UIImage.swift */; };
 		EDAC53572922CAD0007F4984 /* Reload.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC53322922CACF007F4984 /* Reload.swift */; };
-		EDAC535B2922CB96007F4984 /* VC+CoreDataProcesses(CRUD).swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC535A2922CB96007F4984 /* VC+CoreDataProcesses(CRUD).swift */; };
 		EDAC53652922CDCB007F4984 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC535E2922CDCA007F4984 /* Router.swift */; };
 		EDAC53662922CDCB007F4984 /* SearchVC+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC535F2922CDCA007F4984 /* SearchVC+Collection.swift */; };
 		EDAC53682922CDCB007F4984 /* SearchVC+SearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC53612922CDCB007F4984 /* SearchVC+SearchBarDelegate.swift */; };
 		EDAC53692922CDCB007F4984 /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC53622922CDCB007F4984 /* Interactor.swift */; };
-		EDAC536A2922CDCB007F4984 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC53632922CDCB007F4984 /* SearchVC.swift */; };
+		EDAC536A2922CDCB007F4984 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC53632922CDCB007F4984 /* HomeVC.swift */; };
 		EDAC536B2922CDCB007F4984 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC53642922CDCB007F4984 /* Presenter.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +99,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		13C6EE98B7455F2539AB222A /* Pods-Recipes_APP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipes_APP.debug.xcconfig"; path = "Target Support Files/Pods-Recipes_APP/Pods-Recipes_APP.debug.xcconfig"; sourceTree = "<group>"; };
+		6B6EB44D4B8C6991A9B9AE20 /* Pods-Recipes_APP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipes_APP.release.xcconfig"; path = "Target Support Files/Pods-Recipes_APP/Pods-Recipes_APP.release.xcconfig"; sourceTree = "<group>"; };
+		99C68B38FC29064C9CD4FA4B /* Pods_Recipes_APP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Recipes_APP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED119CF82923A0B400161D09 /* AppDelegate_S.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate_S.swift; sourceTree = "<group>"; };
+		ED119CF92923A0B500161D09 /* UIWindow_S.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWindow_S.swift; sourceTree = "<group>"; };
+		ED119CFF2923A1E000161D09 /* HomeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeVC.xib; sourceTree = "<group>"; };
+		ED119D012923A1E000161D09 /* RecipeDetailsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetailsCell.swift; sourceTree = "<group>"; };
+		ED119D022923A1E000161D09 /* RecipeDetailsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecipeDetailsCell.xib; sourceTree = "<group>"; };
+		ED119D042923A1E100161D09 /* OptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionCell.swift; sourceTree = "<group>"; };
+		ED119D052923A1E100161D09 /* OptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptionCell.xib; sourceTree = "<group>"; };
+		ED119D122923A1F900161D09 /* AlertVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
+		ED119D132923A1F900161D09 /* AlertVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertVC.xib; sourceTree = "<group>"; };
+		ED119D172923A57500161D09 /* VC+CoreDataProcesses(CRUD).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VC+CoreDataProcesses(CRUD).swift"; sourceTree = "<group>"; };
+		ED4248D32924E0D600F53D2B /* RecipeDetailsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecipeDetailsVC.xib; sourceTree = "<group>"; };
+		ED4248D42924E0D600F53D2B /* RecipeDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetailsVC.swift; sourceTree = "<group>"; };
+		ED4248D72924E5D400F53D2B /* DetailsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsRouter.swift; sourceTree = "<group>"; };
+		ED4248D92924E72600F53D2B /* RecipeDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsPresenter.swift; sourceTree = "<group>"; };
+		ED4248DB2924E74300F53D2B /* RecipeDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsInteractor.swift; sourceTree = "<group>"; };
+		ED7EDAA62924B8B000F49624 /* HeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeadView.xib; sourceTree = "<group>"; };
+		ED7EDAA72924B8B000F49624 /* HeadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadView.swift; sourceTree = "<group>"; };
+		EDA624AA29234C5C00DAFF86 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		EDAC52D12922CA02007F4984 /* Recipes_APP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipes_APP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDAC52D42922CA02007F4984 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDAC52D62922CA02007F4984 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -133,12 +172,11 @@
 		EDAC53302922CACF007F4984 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EDAC53312922CACF007F4984 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		EDAC53322922CACF007F4984 /* Reload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reload.swift; sourceTree = "<group>"; };
-		EDAC535A2922CB96007F4984 /* VC+CoreDataProcesses(CRUD).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VC+CoreDataProcesses(CRUD).swift"; sourceTree = "<group>"; };
 		EDAC535E2922CDCA007F4984 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		EDAC535F2922CDCA007F4984 /* SearchVC+Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SearchVC+Collection.swift"; sourceTree = "<group>"; };
 		EDAC53612922CDCB007F4984 /* SearchVC+SearchBarDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SearchVC+SearchBarDelegate.swift"; sourceTree = "<group>"; };
 		EDAC53622922CDCB007F4984 /* Interactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
-		EDAC53632922CDCB007F4984 /* SearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		EDAC53632922CDCB007F4984 /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		EDAC53642922CDCB007F4984 /* Presenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,6 +185,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1493A37AC62ABAFE52A0CEB1 /* Pods_Recipes_APP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,13 +206,84 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1ACBB70F6CD7723AB51B9C64 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				13C6EE98B7455F2539AB222A /* Pods-Recipes_APP.debug.xcconfig */,
+				6B6EB44D4B8C6991A9B9AE20 /* Pods-Recipes_APP.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		ED119CFC2923A0C700161D09 /* AppDelegates */ = {
+			isa = PBXGroup;
+			children = (
+				EDAC52D42922CA02007F4984 /* AppDelegate.swift */,
+				ED119CF82923A0B400161D09 /* AppDelegate_S.swift */,
+				ED119CF92923A0B500161D09 /* UIWindow_S.swift */,
+				EDAC52D62922CA02007F4984 /* SceneDelegate.swift */,
+			);
+			path = AppDelegates;
+			sourceTree = "<group>";
+		};
+		ED119D002923A1E000161D09 /* RecipeDetailsCell */ = {
+			isa = PBXGroup;
+			children = (
+				ED119D012923A1E000161D09 /* RecipeDetailsCell.swift */,
+				ED119D022923A1E000161D09 /* RecipeDetailsCell.xib */,
+			);
+			path = RecipeDetailsCell;
+			sourceTree = "<group>";
+		};
+		ED119D032923A1E100161D09 /* SegmentedControlCell */ = {
+			isa = PBXGroup;
+			children = (
+				ED119D042923A1E100161D09 /* OptionCell.swift */,
+				ED119D052923A1E100161D09 /* OptionCell.xib */,
+			);
+			path = SegmentedControlCell;
+			sourceTree = "<group>";
+		};
+		ED119D112923A1F900161D09 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				ED119D122923A1F900161D09 /* AlertVC.swift */,
+				ED119D132923A1F900161D09 /* AlertVC.xib */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
+		ED4248D22924E0D600F53D2B /* RecipeDetailsVC */ = {
+			isa = PBXGroup;
+			children = (
+				ED4248D72924E5D400F53D2B /* DetailsRouter.swift */,
+				ED4248D32924E0D600F53D2B /* RecipeDetailsVC.xib */,
+				ED4248D42924E0D600F53D2B /* RecipeDetailsVC.swift */,
+				ED4248D92924E72600F53D2B /* RecipeDetailsPresenter.swift */,
+				ED4248DB2924E74300F53D2B /* RecipeDetailsInteractor.swift */,
+			);
+			path = RecipeDetailsVC;
+			sourceTree = "<group>";
+		};
+		ED7EDAA52924B8B000F49624 /* HeadView */ = {
+			isa = PBXGroup;
+			children = (
+				ED7EDAA62924B8B000F49624 /* HeadView.xib */,
+				ED7EDAA72924B8B000F49624 /* HeadView.swift */,
+			);
+			path = HeadView;
+			sourceTree = "<group>";
+		};
 		EDAC52C82922CA02007F4984 = {
 			isa = PBXGroup;
 			children = (
+				EDA624AA29234C5C00DAFF86 /* Podfile */,
 				EDAC52D32922CA02007F4984 /* Recipes_APP */,
 				EDAC52ED2922CA11007F4984 /* Recipes_APPTests */,
 				EDAC52F72922CA11007F4984 /* Recipes_APPUITests */,
 				EDAC52D22922CA02007F4984 /* Products */,
+				1ACBB70F6CD7723AB51B9C64 /* Pods */,
+				F719793781124E4EAEB090F6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -191,8 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				EDAC53592922CB5D007F4984 /* Scenes */,
-				EDAC52D42922CA02007F4984 /* AppDelegate.swift */,
-				EDAC52D62922CA02007F4984 /* SceneDelegate.swift */,
+				ED119CFC2923A0C700161D09 /* AppDelegates */,
 				EDAC53072922CACE007F4984 /* API */,
 				EDAC532A2922CACF007F4984 /* Helper */,
 				EDAC530F2922CACF007F4984 /* Entities */,
@@ -227,7 +336,7 @@
 		EDAC53072922CACE007F4984 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				EDAC535A2922CB96007F4984 /* VC+CoreDataProcesses(CRUD).swift */,
+				ED119D172923A57500161D09 /* VC+CoreDataProcesses(CRUD).swift */,
 				EDAC53082922CACF007F4984 /* Constants.swift */,
 				EDAC53092922CACF007F4984 /* APIClient.swift */,
 				EDAC530A2922CACF007F4984 /* APIRouter.swift */,
@@ -295,6 +404,7 @@
 		EDAC532A2922CACF007F4984 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				ED119D112923A1F900161D09 /* Alert */,
 				EDAC532B2922CACF007F4984 /* NetworkHelper.swift */,
 				EDAC532C2922CACF007F4984 /* UIVC_Blur_Ext.swift */,
 				EDAC532D2922CACF007F4984 /* Result_Error.swift */,
@@ -310,7 +420,8 @@
 		EDAC53592922CB5D007F4984 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				EDAC535D2922CD8A007F4984 /* DetailsScreen */,
+				ED7EDAA52924B8B000F49624 /* HeadView */,
+				ED4248D22924E0D600F53D2B /* RecipeDetailsVC */,
 				EDAC535C2922CD62007F4984 /* SearchScreen */,
 			);
 			path = Scenes;
@@ -319,21 +430,25 @@
 		EDAC535C2922CD62007F4984 /* SearchScreen */ = {
 			isa = PBXGroup;
 			children = (
+				ED119D002923A1E000161D09 /* RecipeDetailsCell */,
+				ED119D032923A1E100161D09 /* SegmentedControlCell */,
 				EDAC53622922CDCB007F4984 /* Interactor.swift */,
 				EDAC53642922CDCB007F4984 /* Presenter.swift */,
 				EDAC535E2922CDCA007F4984 /* Router.swift */,
-				EDAC53632922CDCB007F4984 /* SearchVC.swift */,
+				ED119CFF2923A1E000161D09 /* HomeVC.xib */,
+				EDAC53632922CDCB007F4984 /* HomeVC.swift */,
 				EDAC535F2922CDCA007F4984 /* SearchVC+Collection.swift */,
 				EDAC53612922CDCB007F4984 /* SearchVC+SearchBarDelegate.swift */,
 			);
 			path = SearchScreen;
 			sourceTree = "<group>";
 		};
-		EDAC535D2922CD8A007F4984 /* DetailsScreen */ = {
+		F719793781124E4EAEB090F6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				99C68B38FC29064C9CD4FA4B /* Pods_Recipes_APP.framework */,
 			);
-			path = DetailsScreen;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -343,9 +458,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EDAC52FE2922CA11007F4984 /* Build configuration list for PBXNativeTarget "Recipes_APP" */;
 			buildPhases = (
+				08F395B092ACD8B8D876246E /* [CP] Check Pods Manifest.lock */,
 				EDAC52CD2922CA02007F4984 /* Sources */,
 				EDAC52CE2922CA02007F4984 /* Frameworks */,
 				EDAC52CF2922CA02007F4984 /* Resources */,
+				892709F5097BDA7CC26A09BF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -440,8 +557,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED119D0A2923A1E100161D09 /* HomeVC.xib in Resources */,
+				ED7EDAA82924B8B000F49624 /* HeadView.xib in Resources */,
+				ED119D0E2923A1E100161D09 /* OptionCell.xib in Resources */,
 				EDAC52E42922CA10007F4984 /* LaunchScreen.storyboard in Resources */,
+				ED119D0C2923A1E100161D09 /* RecipeDetailsCell.xib in Resources */,
+				ED4248D52924E0D700F53D2B /* RecipeDetailsVC.xib in Resources */,
 				EDAC52E12922CA10007F4984 /* Assets.xcassets in Resources */,
+				ED119D152923A1F900161D09 /* AlertVC.xib in Resources */,
+				EDA624AB29234C5C00DAFF86 /* Podfile in Resources */,
 				EDAC52DC2922CA02007F4984 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,20 +586,63 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		08F395B092ACD8B8D876246E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Recipes_APP-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		892709F5097BDA7CC26A09BF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Recipes_APP/Pods-Recipes_APP-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Recipes_APP/Pods-Recipes_APP-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Recipes_APP/Pods-Recipes_APP-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		EDAC52CD2922CA02007F4984 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				EDAC53492922CAD0007F4984 /* UILabelX.swift in Sources */,
+				ED119CFA2923A0B500161D09 /* AppDelegate_S.swift in Sources */,
 				EDAC53562922CAD0007F4984 /* UIImage.swift in Sources */,
 				EDAC534B2922CAD0007F4984 /* UIViewControllerX.swift in Sources */,
+				ED4248DA2924E72600F53D2B /* RecipeDetailsPresenter.swift in Sources */,
 				EDAC53512922CAD0007F4984 /* UIVC_Blur_Ext.swift in Sources */,
 				EDAC533A2922CAD0007F4984 /* Next.swift in Sources */,
 				EDAC53372922CAD0007F4984 /* API_Post.swift in Sources */,
 				EDAC53462922CAD0007F4984 /* UIViewXRadialGradient.swift in Sources */,
 				EDAC53352922CAD0007F4984 /* APIRouter.swift in Sources */,
-				EDAC535B2922CB96007F4984 /* VC+CoreDataProcesses(CRUD).swift in Sources */,
 				EDAC534E2922CAD0007F4984 /* UIVisualEffectViewX.swift in Sources */,
 				EDAC53662922CDCB007F4984 /* SearchVC+Collection.swift in Sources */,
 				EDAC53362922CAD0007F4984 /* API_Get.swift in Sources */,
@@ -483,6 +650,7 @@
 				EDAC53382922CAD0007F4984 /* APIClient_Ext.swift in Sources */,
 				EDAC53502922CAD0007F4984 /* NetworkHelper.swift in Sources */,
 				EDAC534A2922CAD0007F4984 /* UIViewAnchorPoint.swift in Sources */,
+				ED119D142923A1F900161D09 /* AlertVC.swift in Sources */,
 				EDAC53522922CAD0007F4984 /* Result_Error.swift in Sources */,
 				EDAC53422922CAD0007F4984 /* Hit.swift in Sources */,
 				EDAC53472922CAD0007F4984 /* UITextFieldX.swift in Sources */,
@@ -491,24 +659,32 @@
 				EDAC53432922CAD0007F4984 /* Image.swift in Sources */,
 				EDAC53442922CAD0007F4984 /* TotalDaily.swift in Sources */,
 				EDAC52D92922CA02007F4984 /* ViewController.swift in Sources */,
-				EDAC536A2922CDCB007F4984 /* SearchVC.swift in Sources */,
+				EDAC536A2922CDCB007F4984 /* HomeVC.swift in Sources */,
 				EDAC52D52922CA02007F4984 /* AppDelegate.swift in Sources */,
 				EDAC53542922CAD0007F4984 /* UIVC_Alert_Ext.swift in Sources */,
+				ED4248D62924E0D700F53D2B /* RecipeDetailsVC.swift in Sources */,
 				EDAC534F2922CAD0007F4984 /* UISliderX.swift in Sources */,
 				EDAC53692922CDCB007F4984 /* Interactor.swift in Sources */,
 				EDAC533D2922CAD0007F4984 /* CA.swift in Sources */,
+				ED119D0B2923A1E100161D09 /* RecipeDetailsCell.swift in Sources */,
 				EDAC53392922CAD0007F4984 /* TotalNutrient.swift in Sources */,
+				ED4248DC2924E74300F53D2B /* RecipeDetailsInteractor.swift in Sources */,
 				EDAC534D2922CAD0007F4984 /* UIViewX.swift in Sources */,
 				EDAC53682922CDCB007F4984 /* SearchVC+SearchBarDelegate.swift in Sources */,
 				EDAC53532922CAD0007F4984 /* Card View.swift in Sources */,
 				EDAC53652922CDCB007F4984 /* Router.swift in Sources */,
 				EDAC52D72922CA02007F4984 /* SceneDelegate.swift in Sources */,
+				ED119CFB2923A0B500161D09 /* UIWindow_S.swift in Sources */,
 				EDAC533E2922CAD0007F4984 /* Recipes_Root.swift in Sources */,
 				EDAC534C2922CAD0007F4984 /* UIImageViewX.swift in Sources */,
 				EDAC53482922CAD0007F4984 /* UIButtonX.swift in Sources */,
 				EDAC533B2922CAD0007F4984 /* Recipe.swift in Sources */,
+				ED119D0D2923A1E100161D09 /* OptionCell.swift in Sources */,
 				EDAC533F2922CAD0007F4984 /* Digest.swift in Sources */,
+				ED4248D82924E5D400F53D2B /* DetailsRouter.swift in Sources */,
 				EDAC52DF2922CA02007F4984 /* Recipes_APP.xcdatamodeld in Sources */,
+				ED7EDAA92924B8B000F49624 /* HeadView.swift in Sources */,
+				ED119D182923A57500161D09 /* VC+CoreDataProcesses(CRUD).swift in Sources */,
 				EDAC53552922CAD0007F4984 /* Extensions.swift in Sources */,
 				EDAC536B2922CDCB007F4984 /* Presenter.swift in Sources */,
 				EDAC53412922CAD0007F4984 /* Link.swift in Sources */,
@@ -686,6 +862,7 @@
 		};
 		EDAC52FF2922CA11007F4984 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 13C6EE98B7455F2539AB222A /* Pods-Recipes_APP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -713,6 +890,7 @@
 		};
 		EDAC53002922CA11007F4984 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6B6EB44D4B8C6991A9B9AE20 /* Pods-Recipes_APP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

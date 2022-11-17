@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import CoreData
 
-extension SearchVC:UICollectionViewDataSource{
+extension HomeVC:UICollectionViewDataSource{
     
     // MARK: - Number OF Items
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -17,7 +17,7 @@ extension SearchVC:UICollectionViewDataSource{
         if collectionView.tag == 100{
             return presenter.healthFiltersContainer.searchBarFilters.count
         }else{
-            return presenter.separateOrdersContainer.limit
+            return presenter.recipesRoot?.recipes.count ?? 0
         }
     }
     // MARK: - Cell
@@ -37,12 +37,12 @@ extension SearchVC:UICollectionViewDataSource{
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
             if let cell = cell as? RecipeDetailsCell {
                 
-                self.presenter?.updateCellInfo(recipeHitIndex: indexPath.row){
-                    recipeTexts,recipeImage  in
-                cell.recipeTitleLabel.text = recipeTexts.recipeTitleText
-                cell.recipeSourceLabel.text = recipeTexts.recipeSourceText
-                    cell.recipeHealthLabel.text = recipeTexts.recipeHealthText
-                if let sp_url = URL(string: recipeImage) {
+                self.presenter?.updateCellInfo(recipeIndex: indexPath.row){
+                    recipeContainer  in
+                    cell.recipeTitleLabel.text = recipeContainer.recipeNameText
+                    cell.recipeSourceLabel.text = recipeContainer.recipeSourceText
+                    cell.recipeHealthLabel.text = recipeContainer.recipeHealthText
+                    if let sp_url = recipeContainer.recipePicUrl {
                     cell.recipeImageView.kf.indicatorType = .activity
                     cell.recipeImageView.kf.setImage(with: sp_url)
                //     cell.recipeImageView.isHidden = true
@@ -56,7 +56,7 @@ extension SearchVC:UICollectionViewDataSource{
 }
 
 
-extension SearchVC:UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
+extension HomeVC:UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
 
     // MARK: - Cell Size
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -81,7 +81,7 @@ extension SearchVC:UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
         let widthPerItem = availableWidth/numberOfItemsInRow
         
         if collectionView.tag != 100{
-            presenter?.updateCellSize(recipeHitIndex: indexPath.row, widthForItem: widthPerItem, cellSizeHandler: {
+            presenter?.updateCellSize(recipeIndex: indexPath.row, widthForItem: widthPerItem, cellSizeHandler: {
                 height in
                 heightPerItem = height
             })
@@ -120,8 +120,9 @@ extension SearchVC:UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        presenter?.saveRecipes(at: indexPath.row)
+//        presenter?.saveRecipes(at: indexPath.row)
         collectionView.deselectItem(at: indexPath, animated: true)
+        presenter?.recipeCellDidSelected(index: indexPath.row)
 //        collectionView.indexpath
     }
     
@@ -129,7 +130,7 @@ extension SearchVC:UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
     
 }
 
-extension SearchVC{
+extension HomeVC{
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let  height = scrollView.frame.size.height
@@ -138,7 +139,7 @@ extension SearchVC{
         if Int(distanceFromBottom) <= Int(height) { // when you reach the bottom
 //            let numOfItemsPerAppending =
             if recipeDetailsCollection == scrollView{
-                self.presenter?.loadNewSeparateOrders()
+                self.presenter?.appendGroupOfRecipes(isScrollToTop: false,nextPageTag: "")
             }
         }
     }

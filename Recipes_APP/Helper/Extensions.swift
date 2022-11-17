@@ -118,10 +118,30 @@ extension String {
     }
     
     
-    func isValidName(name:String) -> Bool {
-         let nameRegex = "\\w{4,18}"
-         let namePredicate = NSPredicate(format:"SELF MATCHES %@", nameRegex)
-         return namePredicate.evaluate(with: name)
+    var isValidSearchKey:Bool{
+//         var nameRegex = "\\w{4,18}"
+        
+//        let nameRegex = "[^A-Za-z\\u0021-\\u0029]"
+////        "^[A-Za-z\\u0021-\\u0029]$"
+////        "^[0-9\\u0660-\\u0669]{6,14}$"
+//         let namePredicate = NSPredicate(format:"SELF MATCHES %@", nameRegex)
+//        print(namePredicate.evaluate(with: self))
+//         return namePredicate.evaluate(with: self)
+//
+        print(!isEmpty && range(of: "[^A-Za-z\\u0021-\\u0029]", options: .regularExpression) == nil)
+//        !isEmpty && range(of: "[^A-Za-z\\u0021-\\u0029]", options: .regularExpression) == nil
+            return !isEmpty && range(of: "[^A-Za-z\\u0021-\\u0029]", options: .regularExpression) == nil
+        
+//        
+        
+//            do {
+//                let regex = try NSRegularExpression(pattern: ".*[^A-Za-z].*", options: .caseInsensitive)
+//                print(regex.firstMatch(in: self, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, self.count)))
+//                return regex.firstMatch(in: self, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, self.count)) != nil
+//            } catch {
+//                return false
+//            }
+        
      }
      
      func isValidPassword(pass: String) -> Bool {

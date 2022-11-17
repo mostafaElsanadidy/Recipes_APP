@@ -14,17 +14,17 @@ extension UIViewController: NVActivityIndicatorViewable{
         let vc = AlertVC()
         if title.isEmpty == true{
             if status == .failure {
-                vc.alert_Title = "حدث خطأ"
+                vc.alert_Title = "Wrong!!"
                 vc.emojiImageName = "grimacing"
                 vc.okBtnTitle = okBtnTitle
                 if okBtnTitle == ""{
-                    vc.okBtnTitle = "العودة"}
+                    vc.okBtnTitle = "Back"}
             } else {
-                vc.alert_Title = "تمت العملية بنجاح"
+                vc.alert_Title = "Success"
                 vc.emojiImageName = "emoji-5"
                 vc.okBtnTitle = okBtnTitle
                 if okBtnTitle == ""{
-                    vc.okBtnTitle = "انطلق"}
+                    vc.okBtnTitle = "Go"}
             }
         } else {
             if title == "no internet connection"{

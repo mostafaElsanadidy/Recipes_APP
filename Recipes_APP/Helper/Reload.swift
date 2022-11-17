@@ -48,7 +48,7 @@ extension ReloadDelegate {
         
 //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
      //   let MainDiscoveryVC = storyboard.instantiateViewController(withIdentifier :"MainDiscoveryVC") as! SearchVC
-        let MainDiscoveryVC = SearchVC()
+        let MainDiscoveryVC = HomeVC()
         let navController = UINavigationController.init(rootViewController: MainDiscoveryVC)
         
         

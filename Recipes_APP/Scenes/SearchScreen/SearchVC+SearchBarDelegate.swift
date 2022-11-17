@@ -9,22 +9,29 @@ import Foundation
 import UIKit
 import DropDown
 
-extension SearchVC:UISearchBarDelegate{
+extension HomeVC:UISearchBarDelegate{
     
     
     func filterForSearchTextAndScopeButton(searchText:String,scopeButtonIndex:Int = 0) {
         
-        if searchBar.text != ""{
+            guard searchBar.text!.isValidSearchKey else {
+                noResultsView.isHidden = false
+                collectionsStackView.isHidden = true
+                self.show_Popup(body: "search key is not valid", type: .single, status: .failure)
+                return }
+        noResultsView.isHidden = true
+        collectionsStackView.isHidden = false
             let scopeButtonIndex = searchBar.selectedScopeButtonIndex
             let searchText = searchBar.text!.lowercased()
             dropDown.hide()
-            guard let presenter = presenter else { return }
+//            guard let presenter = presenter else { return }
             recipeDetailsCollection.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-            presenter.showRecipes(with: searchText, healthParams: [presenter.healthFiltersContainer.apiParamsFilters[scopeButtonIndex]])
+            presenter?.searchKey = searchText
+            presenter?.scopeButtonIndex = scopeButtonIndex
+//            presenter.showRecipes(with: searchText, healthParams: [presenter.healthFiltersContainer.apiParamsFilters[scopeButtonIndex]])
+            presenter?.appendGroupOfRecipes(isScrollToTop: true,nextPageTag: "")
 //                return scopeMatch && searchTextMatch
-        }else{
-//            return scopeMatch
-        }
+        
     }
     
     
@@ -69,7 +76,7 @@ extension SearchVC:UISearchBarDelegate{
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count == 0 {
-            self.presenter?.loadRecipes()
+//            self.presenter?.loadRecipes()
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
             }

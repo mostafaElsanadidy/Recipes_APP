@@ -1,90 +1,137 @@
 //
 //  Presenter.swift
-//  RecipesApp
+//  Salamtak
 //
-//  Created by mostafa elsanadidy on 14.11.22.
+//  Created by mostafa elsanadidy on 06.11.22.
 //
 
 import Foundation
-import CoreData
 import UIKit
+import MOLH
+
 // object
 // need protocol
 // ref to interactor, router, view
-
-
-//    update(with
-//           loadNewSeparateOrders
-//collectionViewDidLoad
-
 protocol AnyPresenter {
+    var selectedRecipeUrlStr:String{get set}
     func viewDidLoad()
-    func saveMedicines()
-    func interactorDidAccessCoreData(with result: Result<[Medicine], Result_Error>,state:coreDataStatus)
-    func appendGroupOfMedicines()
-//    var arrOfItemsCount:[Int]{get set}
-//    var healthParams: [String]{get set}
-    var searchKey:String{get set}
 //    func changeLanguage()
-    func updateCellInfo(medicineIndex:Int,collectionCellHandler:((MedicineContainer)->Void)?)
+    
+//    func updateCellInfo(recipeIndex:Int,collectionCellHandler:((RecipeContainer)->Void)?)
+    
+//    
+//    func updateCellSize(recipeIndex:Int,widthForItem:CGFloat,cellSizeHandler:((CGFloat)->Void)?)
+//    func routeToNextVC()
+    
 }
 
 
 protocol AnyRecipesPresenter:AnyPresenter{
     
-    var router: AnyMedicationRouter? {get set}
-    var interactor: AnyMedicationInteractor? {get set}
-    var view: AnyMedicationView? {get set}
-    var separateOrdersContainer:SeparateOrdersContainer<Complaint> {get set}
-    var recipeTextsContainer:RecipeTextsContainer {get set}
+    var router: AnyRecipesRouter? {get set}
+    var interactor: AnyRecipesInteractor? {get set}
+    var view: AnyRecipesView? {get set}
+    var recipesRoot:RecipesRoot? {get set}
+//    var separateOrdersContainer:SeparateOrdersContainer<RecipeStruct> {get set}
     var healthFiltersContainer:HealthFiltersContainer {get set}
-    var defaultHandler:()->() {get set}
+    var scopeButtonIndex:Int{get set}
+    var searchKey:String{get set}
     
-    func interactorDidFetchMedicines(with result: Result<[Complaint],Result_Error>)
+    func changeLanguage()
+       func updateCellInfo(recipeIndex:Int,collectionCellHandler:((RecipeContainer)->Void)?)
+       func interactorDidFetchRecipes(with result: Result<Recipes_Root,Result_Error>)
+   
+       func updateCellSize(recipeIndex:Int,widthForItem:CGFloat,cellSizeHandler:((CGFloat)->Void)?)
+       func routeToNextVC()
+    func recipeCellDidSelected(index:Int)
+    func saveRecipes()
+    func interactorDidAccessCoreData(with result: Result<[ManagedRecipe], Result_Error>,state:coreDataStatus)
+    func appendGroupOfRecipes(isScrollToTop:Bool,nextPageTag:String)
+//    var arrOfItemsCount:[Int]{get set}
     
-    func updateCellSize(medicineIndex:Int,widthForItem:CGFloat,cellSizeHandler:((CGFloat)->Void)?)
-    func routeToNextVC()
-    func showRecipes(with searchKey:String, healthParams: [String])
+}
+
+ struct RecipesRoot {
+        var fromIndex:Int
+        var toIndex:Int
+        var count:Int
+        var nextPageUrlStr:String
+        var recipes:[RecipeContainer]
+    }
+
+struct RecipeContainer {
+    var recipeNameText:String
+    var recipePicUrl:URL?
+    var recipeId:String
+    var recipeSourceText:String
+    var recipeHealthText:String
+    var recipePublisherUrlText:String
+    var recipeIngredientsText:String
+    
+    init(recipeId:String = "",recipeNameText:String,recipePicUrl:URL?,recipeSourceText:String = "",recipeHealthText:String = "",recipePublisherUrlText:String = "",recipeIngredientsText:String = "") {
+        self.recipeNameText = recipeNameText
+        self.recipePicUrl = recipePicUrl
+        self.recipeSourceText = recipeSourceText
+        self.recipeHealthText = recipeHealthText
+        self.recipePublisherUrlText = recipePublisherUrlText
+        self.recipeIngredientsText = recipeIngredientsText
+        self.recipeId = recipeId
+    }
 }
 
 struct SeparateOrdersContainer<T>{
-    var limit:Int = 0{
-        didSet{itemsCountDidSet(limit)}
-    }
+    var limit:Int = 0
+//    {
+//        didSet{itemsCountDidSet(limit)}
+//    }
+    
     var indOfSeparateOrder:Int = 0
     var arrOfSeparateOrders:[T] = []
-    var medicines=[T]()
+    var recipes=[T]()
     {
         willSet{
-            medicinesWillSet()
+            
+//                itemsCountDidSet((recipes.count-limit) < 3 && totalCount>recipes.count)
+            let count = recipes.count
+            recipesWillSet(count, limit)
         }
         didSet{
-            if medicines.count/10 == 0{
-                limit = medicines.count
+            if recipes.count/3 == 0{
+                limit = recipes.count
                 while indOfSeparateOrder < limit{
-                        arrOfSeparateOrders.append(medicines[indOfSeparateOrder])
+                        arrOfSeparateOrders.append(recipes[indOfSeparateOrder])
                            indOfSeparateOrder = indOfSeparateOrder + 1
                        }
             }
-            
-            if limit < medicines.count{
-                limit = arrOfSeparateOrders.count+10
+            let diff = recipes.count-limit
+            if (diff < 3) && diff != 0 && (1000>recipes.count) {
+                itemsCountDidSet()
+            }else
+            if limit < recipes.count{
+                limit = arrOfSeparateOrders.count+3
                 while indOfSeparateOrder < limit{
-                    if indOfSeparateOrder == medicines.count{
+                    if indOfSeparateOrder == recipes.count{
                         limit = indOfSeparateOrder
                                 break
                             }
-                    arrOfSeparateOrders.append(medicines[indOfSeparateOrder])
+                    arrOfSeparateOrders.append(recipes[indOfSeparateOrder])
                     indOfSeparateOrder = indOfSeparateOrder + 1
                                }
                         }
-            medicinesDidSet(isScrollToTop, arrOfSeparateOrders)
+            recipesDidSet(isScrollToTop, arrOfSeparateOrders)
                     }
     }
     var isScrollToTop = false
-    var medicinesDidSet:(Bool,[T])->Void = {_,_  in}
-    var medicinesWillSet:()->Void = {}
-    var itemsCountDidSet:(Int)->Void = {_ in }
+    var recipesDidSet:(Bool,[T])->Void = {_,_  in}
+    var recipesWillSet:(Int,Int)->Void = {_,_ in }
+    var itemsCountDidSet:()->Void = {}
+    var totalCount = 1000
+}
+
+struct HealthFiltersContainer {
+    var searchBarFilters:[String]
+    var apiParamsFilters:[String]
+    mutating func recipesHitsWillSet(){searchBarFilters.append("")}
 }
 
 enum coreDataStatus{
@@ -96,42 +143,50 @@ enum coreDataStatus{
 }
 
 
-struct RecipeTextsContainer {
-    var recipeTitleText:String = ""
-    var recipeSourceText:String = ""
-    var recipeHealthText:String = ""
-}
-
-
-struct HealthFiltersContainer {
-    var searchBarFilters:[String]
-    var apiParamsFilters:[String]
-    mutating func recipesHitsWillSet(){searchBarFilters.append("")}
-}
-
-
 class RecipesPresenter: AnyRecipesPresenter {
-
+    
     var router: AnyRecipesRouter?
     
-    var interactor: AnyRecipesInteractor?{
+    var interactor: AnyRecipesInteractor?
+    
+    var separateOrdersContainer = SeparateOrdersContainer<Recipe>()
+    var recipesRoot:RecipesRoot?
+//    var recipes:[Recipe] = []
+    var view: AnyRecipesView?
+    
+//    var indexFrom = 0
+//    var indexTo = 3
+    var searchKey = ""{
         didSet{
-        //    interactor?.getRecipes(searchKey: "", healthParams: [""])
+            
+            if searchKey != oldValue{
+//                indexFrom = 0
+//                indexTo = 3
+                self.separateOrdersContainer.limit = 0
+                self.separateOrdersContainer.indOfSeparateOrder = 0
+                self.separateOrdersContainer.recipes = []
+                self.separateOrdersContainer.arrOfSeparateOrders = []
+            }
         }
     }
     
-    var view: AnyRecipesView?
-//    var structor = HealthFiltersContainer(searchBarFilters: [], apiParamsFilters: [])
-    
-    //MARK: - DEFAULT HANDLER
-    var defaultHandler: ()->() = {}
-    
-    
-    var recipeTextsContainer = RecipeTextsContainer()
-    
-    var separateOrdersContainer = SeparateOrdersContainer()
-    
- //       var recipeTitleText = "", recipeSourceText = "", recipeHealthText = ""
+//    var indeces:[Int] = []
+    var isWantToUpdate:Bool = false
+    var selectedRecipeUrlStr:String = ""
+    var scopeButtonIndex = 0{
+        didSet{
+            
+            if scopeButtonIndex != oldValue{
+//                indexFrom = 0
+//                indexTo = 3
+                self.separateOrdersContainer.limit = 0
+                self.separateOrdersContainer.indOfSeparateOrder = 0
+                self.separateOrdersContainer.recipes = []
+                self.separateOrdersContainer.arrOfSeparateOrders = []
+            }
+        }
+    }
+//    var totalPrice:Float = 0
     var healthFiltersContainer = HealthFiltersContainer(searchBarFilters:
                                                             ["All"
                                                              ,"Low Sugar"
@@ -142,146 +197,92 @@ class RecipesPresenter: AnyRecipesPresenter {
                                                              ,"low-sugar"
                                                              ,"keto-friendly"
                                                              ,"vegan"])
-        
-        var restaurantTuple:(key:String,name:String)?
     
-        var selectedRestaurant:Restaurant?{
-            didSet{
-                self.loadRecipes(parentRestaurant: (key: "parentRestaurant.name", name: selectedRestaurant?.name ?? ""))
-            }
-        }
-        var selectedRecipes:[SelectedRecipe] = []
-    
-    func updateCellInfo(recipeHitIndex:Int,collectionCellHandler:((RecipeTextsContainer,String)->Void)?){
-        guard let recipe = getFromApiData(recipeHitIndex: recipeHitIndex) else{return}
-        collectionCellHandler?(recipeTextsContainer, recipe.image ?? "")
-    }
-    
-    func updateCellSize(recipeHitIndex:Int,widthForItem:CGFloat,cellSizeHandler:((CGFloat)->Void)?){
-        let _ = getFromApiData(recipeHitIndex: recipeHitIndex)
-        cellSizeHandler?(heightFor(using: widthForItem-200))
-    }
+//    var arrOfItemsCount:[Int] = [] {
+//        didSet{
+//            let counts = arrOfItemsCount
+//            let items = recipes
+//            let prices = counts.enumerated()
+//    //                .filter{ (tuple.oldValues.count != 0 && abs(tuple.oldValues[$0.offset]-$0.element) != 0)}
+//                .filter{$0.element != 0}
+//                .map{(index, element) -> Float in
+//                    let recipe = items[index]
+//                    return Float(element) * (recipe.price ?? 0.0)
+//                }
+//            self.totalPrice = prices.reduce(0,+)
+//            self.view?.updateCountOfSelectedItems(numOfItems: counts.reduce(0,+), totalPrice: strDidShortenPrice(price: totalPrice))
+//        }
+//    }
     
     func viewDidLoad() {
-//        structor.recipesHitsWillSet()
-        NetworkHelper.lastSuggestion = self.healthFiltersContainer.apiParamsFilters
-        print(FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask))
-        self.separateOrdersContainer.recipesHitsDidSet = self.view?.collectionViewDidLoad ?? {_ in}
-        self.separateOrdersContainer.recipesHitsWillSet = self.view?.collectionViewWillLoad ?? {}
-        self.defaultHandler = {
-            print("mostafa")
-            for item in self.selectedRecipes ?? [] {
-                           print(item.title ?? "")
-                       }
-        }
-        
-        
-        restaurantTuple = (key: "parentRestaurant.name", name: selectedRestaurant?.name ?? "")
-     //   self.interactorDidFetchRecipes(with: <#T##Result<[Hit], Result_Error>#>)
-//        get_My_Recipes_Data()
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()){
-            self.loadRecipes(parentRestaurant: self.restaurantTuple)
-        }
-        
-//        deleteRows(at: 0)
-//        deleteRows(at: 2)
-//        deleteRows(at: selectedRecipes.count-1)
-        print("dafsdfsd")
-        print("____________________________")
-//        let request:NSFetchRequest<SelectedRecipe> = SelectedRecipe.fetchRequest()
-//        request.predicate = NSPredicate.init(format: "title CONTAINS[cd] %@","Ro")
-//        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-//        print(request)
-//        print(SelectedRecipe.fetchRequest())
-        
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()){
-            self.searchRecipe(with: (key:"title",text:"Ro"), parentRestaurant: self.restaurantTuple)}
-//       // searchRecipe(with: "pO", in: &managedObject)
-        print("_____________________________-")
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()){
-            self.loadRecipes(parentRestaurant: self.restaurantTuple)
+        self.separateOrdersContainer.recipesDidSet = {
+            [unowned self] 
+            isScrollToTop,recipes in
+            print(recipes.map{$0.label})
+//            self.recipes = recipes.map{$0.recipe}
             
-      //      self.presenter?.updateRecipe(at: 4, with: (dueDate:!self.selectedRecipes[4].dueDate,title:"jhghjgjh"))
+            self.recipesRoot?.recipes = recipes.map{RecipeContainer(recipeId: $0.uri.split{$0 == "_"}.map(String.init)[1], recipeNameText: $0.label ?? "" , recipePicUrl: URL(string: $0.image ?? ""), recipeSourceText: $0.source ?? "", recipeHealthText: self.getStringFromArr(strArr: $0.healthLabels, separator: ","))}
+            
+            self.view?.collectionViewDidLoad(isScrollToTop: isScrollToTop)
         }
+        self.separateOrdersContainer.recipesWillSet =
+        {
+                [weak self]
+                recipesCount,limito
+                in
+            guard let strongSelf = self else{return}
+            strongSelf.view?.collectionViewWillLoad()
+        }
+        
+        self.separateOrdersContainer.itemsCountDidSet = {
+            [weak self]
+            in
+        guard let strongSelf = self else{return}
+//        strongSelf.view?.collectionViewWillLoad()
+           guard let recipesRoot = strongSelf.recipesRoot else { return }
+//                let diff = recipesCount-limito
+//            guard (diff < 3) && diff != 0 && (1000>recipesCount) else{return}
+              
+        
+//            strongSelf.interactor?.getRecipes(searchKey: strongSelf.searchKey,healthFilters: [strongSelf.healthFiltersContainer.apiParamsFilters[strongSelf.scopeButtonIndex]].filter{!$0.isEmpty}, nextPageTag: (recipesRoot.nextPageUrlStr.slice(from: "_cont=", to: "&")) ?? "")
+                strongSelf.appendGroupOfRecipes(isScrollToTop: false, nextPageTag:(recipesRoot.nextPageUrlStr.slice(from: "_cont=", to: "&")) ?? "")
+        
+    
+        
+        
         
     }
-
-    func loadNewSeparateOrders(){
-        self.separateOrdersContainer.isScrollToTop = false
-        self.separateOrdersContainer.recipesHits = {self.separateOrdersContainer.recipesHits}()
+        
+        
+        
+        appendGroupOfRecipes(isScrollToTop: true, nextPageTag: "")
+        
+        view?.loadRecipes()
+        
         
     }
-    
-    func showRecipes(with searchKey: String, healthParams: [String]) {
-        interactor?.getRecipes(searchKey: searchKey, healthParams: healthParams)
-//        interactor?.defaultHandler = {
-//            print("kl;")
-//        }
+    func routeToNextVC() {
+        router?.route(to: RecipeDetailsRouter.start(), selectedRecipeUrlStr: selectedRecipeUrlStr)
+    }
+    func appendGroupOfRecipes(isScrollToTop:Bool = false,nextPageTag:String) {
+        if isScrollToTop || nextPageTag != ""{
+            interactor?.getRecipes(searchKey: searchKey,healthFilters: [healthFiltersContainer.apiParamsFilters[scopeButtonIndex]].filter{!$0.isEmpty}, nextPageTag: nextPageTag)}else{
+                separateOrdersContainer.isScrollToTop = isScrollToTop
+                separateOrdersContainer.recipes = {separateOrdersContainer.recipes}()
+            }
+    }
+    func changeLanguage() {
+//        MOLH.setLanguageTo(MOLHLanguage.currentAppleLanguage() == "en" ? "ar" : "en")
+//
+//        isValidName
+//        MOLH.reset()
     }
     
-//    func deleteItems(from array:inout [SelectedRecipe],at index:Int,afterDelete executionHandler:(()->())?=nil){
-//        interactor?.deleteItems(at: index, afterDelete: executionHandler)
-//    }
-
-    
-}
-
-
-
-extension RecipesPresenter{
-    
-    //     //MARK: - the C in the word CRUD
-        func saveRecipes(at index:Int){
-            let selectedRecipe = SelectedRecipe.init(context: viewContext)
-            selectedRecipe.title = separateOrdersContainer.arrOfSeparateOrders[index].recipe.label
-            selectedRecipe.parentRestaurant = self.selectedRestaurant
-            interactor?.saveRecipes()
-        }
-    //    //MARK: - the R in the word CRUD
-        func searchRecipe(with searchTuple:(key:String,text:String),parentRestaurant restaurantTuple:(key:String,name:String)?){
-           
-            interactor?.searchRecipe(with: searchTuple, parentRestaurant: restaurantTuple )
-        }
-    //
-        func loadRecipes(){
-            interactor?.loadRecipes(parentRestaurant: restaurantTuple)
-        }
-        func loadRecipes(parentRestaurant restaurantTuple:(key:String,name:String)?) {
-            interactor?.loadRecipes(parentRestaurant: restaurantTuple)
-        }
-    //
-    //
-        //MARK: - the U in the word CRUD
-        func updateRecipe(at index:Int,with updateValueKeys:(dueDate:Bool,title:String)){
-            
-            interactor?.updateRecipe(at: index, with: updateValueKeys)
-            
-        }
-    //    //MARK: - the D in the word CRUD
-        
-        func deleteItems(at index: Int) {
-            interactor?.deleteItems(at: index)
-        }
 }
 
 extension RecipesPresenter{
     
-    func interactorDidAccessCoreData(with recipes: [SelectedRecipe]?) {
-        print("mostafa")
-        guard let _ = recipes else {
-            view?.collectionViewDidLoad(isScrollToTop: true)
-            return  }
-        let _ = self.selectedRecipes.map{print($0.title ?? "")}
-        
-//    self.selectedRecipes = recipes
-//    for item in self.selectedRecipes{
-//                   print(item.title ?? "")
-//               }
-        view?.collectionViewDidLoad(isScrollToTop: true)
-    }
-    
-    func interactorDidFetchRecipes(with result: Result<[Hit], Result_Error>) {
+    func interactorDidFetchRecipes(with result: Result<Recipes_Root, Result_Error>) {
         switch result {
         case .failure(let error):
             self.view?.update(with: error)
@@ -289,50 +290,62 @@ extension RecipesPresenter{
             self.update(with: recipes_data)
         }
     }
+    func update(with recipesRoot: Recipes_Root) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
+            print(recipesRoot.hits.map{$0.recipe.label})
+//            let numOfItemsPerAppending = 3
+            print(recipesRoot)
+            self.recipesRoot = RecipesRoot(fromIndex: recipesRoot.from ?? 0, toIndex: recipesRoot.to ?? 0, count: recipesRoot.count ?? 0, nextPageUrlStr: recipesRoot.links?.next.href ?? "", recipes: [])
+            self.separateOrdersContainer.recipes += recipesRoot.hits.map{$0.recipe}
+            print(self.separateOrdersContainer.recipes.count)
+//            if recipes.count > numOfItemsPerAppending{
+//                for index in 0..<numOfItemsPerAppending{
+//                    self.separateOrdersContainer.recipes.append(recipes[index])
+//                }
+//            }else{
+//                self.separateOrdersContainer.recipes.append(contentsOf: recipes)}
+//            self.indexFrom += 3
+//            self.indexTo += 3
+            
+//            self.interactor?.loadRecipes()
+        }
+        
+    }
 }
-
-
 
 extension RecipesPresenter{
     
-    func getFromApiData(recipeHitIndex:Int)->Recipe?{
-        guard let recipe = separateOrdersContainer.arrOfSeparateOrders[recipeHitIndex].recipe  else{
-            return nil
-        }
-        self.recipeTextsContainer.recipeTitleText = recipe.label
-        self.recipeTextsContainer.recipeSourceText = recipe.source
-        self.recipeTextsContainer.recipeHealthText = getStringFromArr(strArr: recipe.healthLabels, separator: ",")
-        return recipe
-    }
-    func update(with recipes: [Hit]) {
-//        self.recipesHits = recipes
-//        self.recipeDetailsCollection.isHidden = true
-     //   self.recipeDetailsCollection.reloadData()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
-            self.separateOrdersContainer.limit = 0
-            self.separateOrdersContainer.indOfSeparateOrder = 0
-            self.separateOrdersContainer.isScrollToTop = true
-            self.separateOrdersContainer.recipesHits = []
-            self.separateOrdersContainer.arrOfSeparateOrders = []
-       //     self.loadNewSeparateOrders()
-            self.separateOrdersContainer.recipesHits = recipes
-            
+    func updateCellInfo(recipeIndex:Int,collectionCellHandler:((RecipeContainer)->Void)?){
+        if let recipes = recipesRoot?.recipes {
+            collectionCellHandler?(recipes[recipeIndex])
         }
     }
     
+    func updateCellSize(recipeIndex:Int,widthForItem:CGFloat,cellSizeHandler:((CGFloat)->Void)?){
+//        let _ = getFromApiData(recipeIndex: recipeIndex)
+        cellSizeHandler?(heightFor(using: widthForItem-200, recipeIndex: recipeIndex))
+    }
+    
+//    func getFromApiData(recipeIndex:Int)->RecipeStruct{
+//        let recipeStrct = separateOrdersContainer.arrOfSeparateOrders[recipeIndex]
+////        self.recipeContainer.recipeNameText = "lang".localized == "en" ? (recipe.englishName ?? "") : (recipe.arabicName ?? "")
+//        self.recipeContainer.recipeNameText = recipeStrct.recipe.label ?? ""
+//        self.recipeContainer.recipeSourceText = recipeStrct.recipe.source ?? ""
+//        self.recipeContainer.recipeHealthText = getStringFromArr(strArr: recipeStrct.recipe.healthLabels, separator: ",")
+////        self.recipeContainer.recipePriceText = strDidShortenPrice(price: recipe.)
+//        return recipeStrct
+//    }
+    
+    
     //CustomLayoutDelegate method
-    func heightFor(using width: CGFloat) -> CGFloat {
+    func heightFor(using width: CGFloat,recipeIndex: Int) -> CGFloat {
         //Implement your own logic to return the height for specific cell
-        let recipeTitleHeight = self.recipeTextsContainer.recipeTitleText.sizeOfString(constrainedToWidth: width, font: UIFont.systemFont(ofSize: 19, weight: .regular)).height
-        let recipeSourceTextHeight = self.recipeTextsContainer.recipeSourceText.sizeOfString(constrainedToWidth: width, font: UIFont.systemFont(ofSize: 17, weight: .bold)).height
-        let recipeHealthTextHeight = self.recipeTextsContainer.recipeHealthText.sizeOfString(constrainedToWidth: width, font: UIFont.systemFont(ofSize: 12, weight: .regular)).height
-                
-              //  print(width)
-                print(recipeTitleHeight+recipeSourceTextHeight+recipeHealthTextHeight)
-                let height = recipeTitleHeight+recipeSourceTextHeight+recipeHealthTextHeight+120
-        print(height)
-//        heightFor(using: widthPerItem-200)
-                   return height
+        guard let recipes = recipesRoot?.recipes else{return 0}
+        let recipeTitleHeight = recipes[recipeIndex].recipeNameText.sizeOfString(constrainedToWidth: width, font: UIFont.systemFont(ofSize: 19, weight: .regular)).height
+        let recipeSourceTextHeight = recipes[recipeIndex].recipeSourceText.sizeOfString(constrainedToWidth: width, font: UIFont.systemFont(ofSize: 17, weight: .bold)).height
+        let recipeHealthTextHeight = recipes[recipeIndex].recipeHealthText.sizeOfString(constrainedToWidth: width, font: UIFont.systemFont(ofSize: 12, weight: .regular)).height
+        let height = recipeTitleHeight+recipeSourceTextHeight+recipeHealthTextHeight+120
+        return height
     }
     
     func getStringFromArr(strArr:[String],separator:String) -> String
@@ -349,23 +362,123 @@ extension RecipesPresenter{
           return dataStr
       }
     
+    
+    func strDidShortenPrice(price:Float?) -> String{
+        let fullPrice = "\(price ?? 0)"
+        let fullPriceArr = fullPrice.split{$0 == "."}.map(String.init)
+        let updatedPriceStr = (fullPriceArr.count > 1 && fullPriceArr[1] == "0" ? fullPriceArr[0] : fullPrice).localized+" "+"pounds".localized
+        return updatedPriceStr
+    }
+    
+    func recipeCellDidSelected(index:Int){
+        guard let recipes = recipesRoot?.recipes else{return }
+        self.selectedRecipeUrlStr = recipes[index].recipeId
+        routeToNextVC()
+    }
 }
 
-
-//func loadNewSeparateOrders(){
-//    //            recipeDetailsCollection.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-//    if separateOrdersContainer.limit < separateOrdersContainer.recipesHits.count{
-//    //                showActivityView(isShow: true)
-//        separateOrdersContainer.limit = separateOrdersContainer.arrOfSeparateOrders.count+3
-//        while separateOrdersContainer.indOfSeparateOrder < separateOrdersContainer.limit{
-//            if separateOrdersContainer.indOfSeparateOrder == separateOrdersContainer.recipesHits.count{
-//                separateOrdersContainer.limit = separateOrdersContainer.indOfSeparateOrder
-//                        break
-//                    }
-//            separateOrdersContainer.arrOfSeparateOrders.append(separateOrdersContainer.recipesHits[separateOrdersContainer.indOfSeparateOrder])
-//            separateOrdersContainer.indOfSeparateOrder = separateOrdersContainer.indOfSeparateOrder + 1
-//                       }
-////            self.perform(#selector(view?.loadCollectionview), with: nil, afterDelay: 2.0)
-//        view?.collectionViewDidLoad()
-//                }
+extension RecipesPresenter{
+    
+    
+    
+    //     //MARK: - the C in the word CRUD
+        func saveRecipes(){
+//            let indeces = self.arrOfItemsCount.enumerated()
+////                    .filter{(_, element) in element != 0}
+//                    .map{$0.offset}
+//
+//            indeces.forEach{
+//                index in
+//                selectedIndex = index
+//                isWantToUpdate = true
+//                searchRecipes(with: ("enName",separateOrdersContainer.arrOfSeparateOrders[index].englishName))
 //            }
+        }
+//    //    //MARK: - the R in the word CRUD
+        func searchRecipes(with searchTuple:(key:String,text:String)){
+
+            interactor?.searchRecipes(with: searchTuple)
+        }
+//    //
+//        func loadRecipes(){
+//            interactor?.loadRecipes(parentRestaurant: restaurantTuple)
+//        }
+//        func loadRecipes(parentRestaurant restaurantTuple:(key:String,name:String)?) {
+//            interactor?.loadRecipes(parentRestaurant: restaurantTuple)
+//        }
+//    //
+//    //
+//        //MARK: - the U in the word CRUD
+    func updateRecipe(at index:Int,with quantity:Int){
+
+            interactor?.updateRecipe(at: index, with: quantity)
+
+        }
+//    //    //MARK: - the D in the word CRUD
+//
+//        func deleteItems(at index: Int) {
+//            interactor?.deleteItems(at: index)
+//        }
+    
+    
+}
+
+extension RecipesPresenter{
+    
+    func interactorDidAccessCoreData(with result: Result<[ManagedRecipe], Result_Error>, state: coreDataStatus) {
+        switch result {
+        case .failure(let error):
+            self.view?.update(with: error)
+        case .success(let recipes_data):
+        let recipes = recipes_data
+        switch state {
+        case .search:
+            if isWantToUpdate{
+ 
+//                let count = self.arrOfItemsCount[selectedIndex]
+                if recipes.count == 0 {
+                    // here you are inserting
+//                    if count != 0{
+//                        interactor?.saveRecipes(recipe: separateOrdersContainer.arrOfSeparateOrders[selectedIndex],quantity:count)
+//                    }
+                 } else {
+                    // here you are updating
+//                     if count != 0{
+//                         updateRecipe(at: selectedIndex, with: count)
+//                     }
+//                     else{
+//                         interactor?.deleteRecipes(where: separateOrdersContainer.arrOfSeparateOrders[selectedIndex].label ?? "")
+//                     }
+                 }
+            }
+        default:
+            let _ = recipes.map{print(
+//                "lang".localized == "en" ? $0.enName ?? "" : $0.arName ?? ""
+                $0.name ?? ""
+                )}
+        }
+        
+            
+                recipes.forEach{
+                    element in
+                    if let _ = self.separateOrdersContainer.recipes.firstIndex(where:{  $0.label==element.name}){
+//                        self.arrOfItemsCount[index] = Int(element.quantity)
+                    }
+                    
+                }
+        view?.collectionViewDidLoad(isScrollToTop: false)
+    }
+        
+    }
+    
+}
+
+extension String {
+    
+    func slice(from: String, to: String) -> String? {
+        guard let rangeFrom = range(of: from)?.upperBound else { return nil }
+        guard let rangeTo = self[rangeFrom...].range(of: to)?.lowerBound else { return nil }
+        return String(self[rangeFrom..<rangeTo])
+    }
+    
+}
