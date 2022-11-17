@@ -34,13 +34,9 @@ class RecipeDetailsPresenter: AnyRecipeDetailsPresenter {
     var view: AnyRecipeDetailsView?
     
     func viewDidLoad() {
-        print("sdfsd")
         view?.setupScreenInitialState()
         interactor?.getRecipeDetails(id: selectedRecipeUrlStr)
     }
-    
-    
-    
     
 }
 
@@ -57,23 +53,10 @@ extension RecipeDetailsPresenter{
     }
     func update(with recipe: Recipe) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
-//            print(recipes.map{$0.recipe.label})
-//            let numOfItemsPerAppending = 3
             [weak self] in
                 guard let strongSelf = self else{return}
             strongSelf.recipeContainer = RecipeContainer(recipeNameText: recipe.label ?? "", recipePicUrl: URL(string: recipe.image ?? ""),recipePublisherUrlText: recipe.url, recipeIngredientsText: recipe.ingredientLines.joined(separator: "\n"))
             strongSelf.view?.update(with: strongSelf.recipeContainer!)
-//            if recipes.count > numOfItemsPerAppending{
-//                for index in 0..<numOfItemsPerAppending{
-//                    self.separateOrdersContainer.recipes.append(recipes[index])
-//                }
-//            }else{
-//                self.separateOrdersContainer.recipes.append(contentsOf: recipes)}
-//            self.indexFrom += 3
-//            self.indexTo += 3
-            
-//            self.interactor?.loadRecipes()
         }
-        
     }
 }

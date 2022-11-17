@@ -13,23 +13,13 @@ import Foundation
 
 
 protocol AnyInteractor{
-    
-//    func deleteRecipes(where itemName: String)
-//    func searchRecipes(with searchTuple:(key:String,text:String))
-//    func loadRecipes()
-//    func updateRecipe(at index:Int,with newQuantity:Int)
+ 
 }
 
 protocol AnyRecipesInteractor:AnyInteractor {
 
     var presenter: AnyRecipesPresenter?{get set}
     func getRecipes(searchKey: String, healthFilters:[String], nextPageTag:String)
-//    func saveRecipes(recipe:Recipe,quantity:Int)
-//
-//    func deleteRecipes(where itemName: String)
-//    func searchRecipes(with searchTuple:(key:String,text:String))
-//    func loadRecipes()
-//    func updateRecipe(at index:Int,with newQuantity:Int)
 }
 
 class RecipesInteractor: AnyRecipesInteractor{
@@ -68,11 +58,6 @@ class RecipesInteractor: AnyRecipesInteractor{
           return dataStr
       }
     
-    
-    //MARK: - the R in the word CRUD
-    
-    
-    //MARK: - the U in the word CRUD
 }
 
 

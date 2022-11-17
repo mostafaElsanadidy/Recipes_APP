@@ -74,7 +74,6 @@ extension HomeVC:UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
         //    height = 300
             edgeInset = 10
             numberOfItemsInRow = 1
-          //  getFromApiData(recipeHit: arrOfSeparateOrders[indexPath.row])
         }
         let paddingSpace = edgeInset*(numberOfItemsInRow+1)
         let availableWidth = collectionView.frame.size.width-paddingSpace
@@ -86,13 +85,6 @@ extension HomeVC:UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
                 heightPerItem = height
             })
         }
-       // CGSize(width: sourse.Ingredients[indexPath.item].size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17)]).width + 25, height: 30)
-//        var widthh:CGFloat = 0.0
-//        if let cell = collectionView.cellForItem(at: indexPath) as? RecipeDetailsCell{
-//            widthh = cell.recipeImageView.frame.width
-//            print(widthh)
-//        }
-//        print(heightFor(using: widthPerItem-widthh))
         return CGSize(width: widthPerItem,height: heightPerItem)
       }
 
@@ -105,25 +97,10 @@ extension HomeVC:UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
         return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
 
-//
-//    func collectionView(_ collectionView: UICollectionView,
-//                      layout collectionViewLayout: UICollectionViewLayout,
-//                      minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return 20
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//
-//        return 20
-//    }
-    
-   
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-//        presenter?.saveRecipes(at: indexPath.row)
+ 
         collectionView.deselectItem(at: indexPath, animated: true)
         presenter?.recipeCellDidSelected(index: indexPath.row)
-//        collectionView.indexpath
     }
     
    
@@ -137,7 +114,6 @@ extension HomeVC{
         let contentYoffset = scrollView.contentOffset.y
         let distanceFromBottom = scrollView.contentSize.height - contentYoffset
         if Int(distanceFromBottom) <= Int(height) { // when you reach the bottom
-//            let numOfItemsPerAppending =
             if recipeDetailsCollection == scrollView{
                 self.presenter?.appendGroupOfRecipes(isScrollToTop: false,nextPageTag: "")
             }

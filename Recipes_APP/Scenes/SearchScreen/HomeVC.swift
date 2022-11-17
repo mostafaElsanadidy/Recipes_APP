@@ -22,7 +22,6 @@ protocol AnyView{
 protocol AnyRecipesView:AnyView{
     
     var presenter: AnyRecipesPresenter? {get set}
-//    func update(with recipes:[Hit])
     func collectionViewDidLoad(isScrollToTop:Bool,recipesCount:Int)
     func collectionViewWillLoad()
     func refreshSearchBar(dropDownSelectedItem:String)
@@ -30,17 +29,11 @@ protocol AnyRecipesView:AnyView{
     func loadRecipes()
     func refreshView(isValidSearchKey:Bool)
     func updateDropDown(lastSuggestion:[String])
-  //  func updateSelectedRecipes(with recipes:[SelectedRecipe]?)
     
 }
 
 class HomeVC: UIViewController,AnyRecipesView {
    
-//    func updateSelectedRecipes(with recipes:[SelectedRecipe]?) {
-//
-//        self.recipeDetailsCollection.reloadData()
-//    }
-    
     @IBOutlet weak var noResultsView: UIView!
     @IBOutlet weak var optionsCollectionView: UICollectionView!
     @IBOutlet weak var recipeDetailsCollection: UICollectionView!
@@ -57,53 +50,13 @@ class HomeVC: UIViewController,AnyRecipesView {
             }
         }
     }
-//    notificationCenter.addObserver(self, selector: #selector(saveSecretMessage), name: UIApplication.willResignActiveNotification, object: nil)
 
-    
-//    let searchBarController = UISearchController()
-//    var restaurantTuple:(key:String,name:String)?
-    
-   // let context = ad.persistentContainer.viewContext
-//    var recipesHits:[Hit] = []{
-//        didSet{
-//            self.recipeDetailsCollection.reloadData()
-////            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+10, execute: {
-////           //     self.killLoading()
-////
-////              //  self.get_My_Recipes_Data()
-////            })
-//            print(NetworkHelper.getLastSuggestion())
-//
-//        }
-//    }
-
-//    var filteredRecipesHits = [Hit]()
-//
-
-//    var managedObject:[NSManagedObject]{
-//        get{
-//            return selectedRecipes as [NSManagedObject]
-//        }
-//        set{
-//            if let selectedRecipes = newValue as? [SelectedRecipe] {
-//                self.selectedRecipes = selectedRecipes
-//            }
-//        }
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         presenter?.viewDidLoad()
-//        coreDataHandler = CoreDataHandler<SelectedRecipe>()
-//        coreDataHandler?.items = selectedRecipes
-       
-//        print(UUID().uuidString)
-       //  restaurantTuple = (key: "parentRestaurant.name", name: selectedRestaurant?.name ?? "")
-        
-//        addItemAlert()
-      //  self.hideKeyboardWhenTappedAround()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -112,15 +65,6 @@ class HomeVC: UIViewController,AnyRecipesView {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
-       
-     //   self.loading()
-//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+5, execute: {
-//       //     self.killLoading()
-//            self.recipeDetailsCollection.reloadData()
-//       //     self.get_My_Recipes_Data()
-//        })
     }
 
     /*
@@ -137,14 +81,10 @@ class HomeVC: UIViewController,AnyRecipesView {
     private func setup_Collection() {
         optionsCollectionView.dataSource = self
         optionsCollectionView.delegate = self
-//        optionsCollectionView.transform = CGAffineTransform(scaleX: -1, y: 1)
         optionsCollectionView.register(UINib(nibName: "OptionCell", bundle: nil), forCellWithReuseIdentifier: "OptionCell")
-   //     recipeDetailsCollection.isUserInteractionEnabled = false
         recipeDetailsCollection.delegate = self
         recipeDetailsCollection.dataSource = self
         recipeDetailsCollection.register(UINib(nibName: "RecipeDetailsCell", bundle: nil), forCellWithReuseIdentifier: "RecipeDetailsCell")
-      //  recipeDetailsCollection.isHidden = true
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -160,16 +100,13 @@ class HomeVC: UIViewController,AnyRecipesView {
     }
     
     func initSearchBar() {
-    
+
         searchBar.enablesReturnKeyAutomatically = false
         searchBar.returnKeyType = UIReturnKeyType.done
         searchBar.showsCancelButton = false
         searchBar.showsScopeBar = false
         searchBar.scopeButtonTitles = self.presenter?.healthFiltersContainer.searchBarFilters
         searchBar.delegate = self
-        
-        //definesPresentationContext = true
-        
     }
     
    
@@ -181,16 +118,11 @@ class HomeVC: UIViewController,AnyRecipesView {
         
     func setupDropDown(with viewTag:Int){
 
-
         guard let searchBar = searchBar
         else{
             return
         }
-//       // searchBar.showsScopeBar = true
-//        DispatchQueue.main.asyncAfter(deadline: .now()+0.1){
-        
-            self.dropDown.anchorView = searchBar // UIView or UIBarButtonItem
-//            self.dropDown.dataSource = ["ذكر","انثى","chicken","salt"]
+        self.dropDown.anchorView = searchBar // UIView or UIBarButtonItem
         presenter?.changeDropDownDataSource()
             self.dropDown.bottomOffset = CGPoint(x: 0, y:(self.dropDown.anchorView?.plainView.bounds.height)!)
             self.dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
@@ -202,7 +134,6 @@ class HomeVC: UIViewController,AnyRecipesView {
                 presenter?.dropDownDidCancelAction()
             }
             self.dropDown.show()
-        //}
     }
     
 }
@@ -220,7 +151,6 @@ extension HomeVC{
             self.show_Popup(body: "search key is not valid", type: .single, status: .failure)}
         else{
             dropDown.hide()
-    //            guard let presenter = presenter else { return }
             recipeDetailsCollection.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         }
     }
@@ -228,9 +158,6 @@ extension HomeVC{
         searchBar.text = dropDownSelectedItem
         searchBar.showsCancelButton = false
         searchBar.showsScopeBar = true
-    //    self.delegate?.changeProgressBar(textField: self.genderTextField, isValidValue: true)
-        
-       // genderTextField.endEditing(true)
         searchBar.endEditing(true)
             let scopeButtonIndex = searchBar.selectedScopeButtonIndex
             let searchText = searchBar.text!
@@ -248,8 +175,6 @@ extension HomeVC{
     
     func collectionViewDidLoad(isScrollToTop:Bool,recipesCount:Int){
             
-//            recipesHitsTableView.tableFooterView!.hideProgressHUD(hud: hud!)
-        
             noResultsView.isHidden = recipesCount != 0
             collectionsStackView.isHidden = recipesCount == 0
             showActivityView(isShow: false)
@@ -259,8 +184,6 @@ extension HomeVC{
         }
     
     func collectionViewWillLoad(){
-//        if isScrollToTop{
-//            recipeDetailsCollection.setContentOffset(CGPoint(x: 0, y: 0), animated: true)}
             showActivityView(isShow: true)
     }
 }

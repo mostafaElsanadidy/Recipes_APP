@@ -27,15 +27,6 @@ protocol AnyRecipesRouter:AnyRouter{
 
 class RecipesRouter: AnyRecipesRouter {
     
-//    func route(to destination: AnyCartRouter) {
-//        var router = destination
-//        let initialVC = router.entry
-//        let viewController = initialVC
-//        navigationController?.pushViewController(viewController ?? ShoppingCartVC(), animated: true)
-//        router.navigationController = navigationController
-//    }
-    
-    
     var entry: EntryMedicationPoint?
     
     var navigationController: UINavigationController?

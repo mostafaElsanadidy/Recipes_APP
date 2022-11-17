@@ -15,14 +15,6 @@ import MOLH
 protocol AnyPresenter {
     var selectedRecipeUrlStr:String{get set}
     func viewDidLoad()
-//    func changeLanguage()
-    
-//    func updateCellInfo(recipeIndex:Int,collectionCellHandler:((RecipeContainer)->Void)?)
-    
-//    
-//    func updateCellSize(recipeIndex:Int,widthForItem:CGFloat,cellSizeHandler:((CGFloat)->Void)?)
-//    func routeToNextVC()
-    
 }
 
 
@@ -32,12 +24,12 @@ protocol AnyRecipesPresenter:AnyPresenter{
     var interactor: AnyRecipesInteractor? {get set}
     var view: AnyRecipesView? {get set}
     var recipesRoot:RecipesRoot? {get set}
-//    var separateOrdersContainer:SeparateOrdersContainer<RecipeStruct> {get set}
+
     var healthFiltersContainer:HealthFiltersContainer {get set}
     var scopeButtonIndex:Int{get set}
     var searchKey:String{get set}
     
-//    func changeLanguage()
+
     func filterForSearchTextAndScopeButton(searchText:String,scopeButtonIndex:Int)
        func updateCellInfo(recipeIndex:Int,collectionCellHandler:((RecipeContainer)->Void)?)
        func interactorDidFetchRecipes(with result: Result<Recipes_Root,Result_Error>)
@@ -47,11 +39,9 @@ protocol AnyRecipesPresenter:AnyPresenter{
        func updateCellSize(recipeIndex:Int,widthForItem:CGFloat,cellSizeHandler:((CGFloat)->Void)?)
        func routeToNextVC()
     func recipeCellDidSelected(index:Int)
-//    func saveRecipes()
-//    func interactorDidAccessCoreData(with result: Result<[ManagedRecipe], Result_Error>,state:coreDataStatus)
+
     func appendGroupOfRecipes(isScrollToTop:Bool,nextPageTag:String)
-//    var arrOfItemsCount:[Int]{get set}
-    
+   
 }
 
  struct RecipesRoot {
@@ -84,9 +74,6 @@ struct RecipeContainer {
 
 struct SeparateOrdersContainer<T>{
     var limit:Int = 0
-//    {
-//        didSet{itemsCountDidSet(limit)}
-//    }
     
     var indOfSeparateOrder:Int = 0
     var arrOfSeparateOrders:[T] = []
@@ -94,9 +81,6 @@ struct SeparateOrdersContainer<T>{
     {
         willSet{
             
-//                itemsCountDidSet((recipes.count-limit) < 3 && totalCount>recipes.count)
-            let count = recipes.count
-            recipesWillSet(count, limit)
         }
         didSet{
             if recipes.count/3 == 0{
@@ -106,8 +90,9 @@ struct SeparateOrdersContainer<T>{
                            indOfSeparateOrder = indOfSeparateOrder + 1
                        }
             }
-            let diff = recipes.count-limit
-            if (diff < 3) && diff != 0 && (1000>recipes.count) {
+            let count = recipes.count
+            let diff = count-limit
+            if (diff < 3) && diff != 0 && (totalCount>count) {
                 itemsCountDidSet()
             }else
             if limit < recipes.count{
@@ -126,9 +111,9 @@ struct SeparateOrdersContainer<T>{
     }
     var isScrollToTop = false
     var recipesDidSet:(Bool,[T])->Void = {_,_  in}
-    var recipesWillSet:(Int,Int)->Void = {_,_ in }
+    var recipesWillSet:()->Void = {}
     var itemsCountDidSet:()->Void = {}
-    var totalCount = 1000
+    var totalCount = 0
 }
 
 struct HealthFiltersContainer {
@@ -156,17 +141,12 @@ class RecipesPresenter: AnyRecipesPresenter {
     
     var separateOrdersContainer = SeparateOrdersContainer<Recipe>()
     var recipesRoot:RecipesRoot?
-//    var recipes:[Recipe] = []
     var view: AnyRecipesView?
     
-//    var indexFrom = 0
-//    var indexTo = 3
     var searchKey = ""{
         didSet{
             
             if searchKey != oldValue{
-//                indexFrom = 0
-//                indexTo = 3
                 self.separateOrdersContainer.limit = 0
                 self.separateOrdersContainer.indOfSeparateOrder = 0
                 self.separateOrdersContainer.recipes = []
@@ -175,15 +155,12 @@ class RecipesPresenter: AnyRecipesPresenter {
         }
     }
     
-//    var indeces:[Int] = []
     var isWantToUpdate:Bool = false
     var selectedRecipeUrlStr:String = ""
     var scopeButtonIndex = 0{
         didSet{
             
             if scopeButtonIndex != oldValue{
-//                indexFrom = 0
-//                indexTo = 3
                 self.separateOrdersContainer.limit = 0
                 self.separateOrdersContainer.indOfSeparateOrder = 0
                 self.separateOrdersContainer.recipes = []
@@ -191,7 +168,7 @@ class RecipesPresenter: AnyRecipesPresenter {
             }
         }
     }
-//    var totalPrice:Float = 0
+
     var healthFiltersContainer = HealthFiltersContainer(searchBarFilters:
                                                             ["All"
                                                              ,"Low Sugar"
@@ -203,29 +180,12 @@ class RecipesPresenter: AnyRecipesPresenter {
                                                              ,"keto-friendly"
                                                              ,"vegan"])
     
-//    var arrOfItemsCount:[Int] = [] {
-//        didSet{
-//            let counts = arrOfItemsCount
-//            let items = recipes
-//            let prices = counts.enumerated()
-//    //                .filter{ (tuple.oldValues.count != 0 && abs(tuple.oldValues[$0.offset]-$0.element) != 0)}
-//                .filter{$0.element != 0}
-//                .map{(index, element) -> Float in
-//                    let recipe = items[index]
-//                    return Float(element) * (recipe.price ?? 0.0)
-//                }
-//            self.totalPrice = prices.reduce(0,+)
-//            self.view?.updateCountOfSelectedItems(numOfItems: counts.reduce(0,+), totalPrice: strDidShortenPrice(price: totalPrice))
-//        }
-//    }
     
     func viewDidLoad() {
         self.separateOrdersContainer.recipesDidSet = {
             [weak self]
             isScrollToTop,recipes in
             guard let strongSelf = self else{return}
-            print(recipes.map{$0.label})
-//            self.recipes = recipes.map{$0.recipe}
             
             strongSelf.recipesRoot?.recipes = recipes.map{RecipeContainer(recipeId: $0.uri.split{$0 == "_"}.map(String.init)[1], recipeNameText: $0.label ?? "" , recipePicUrl: URL(string: $0.image ?? ""), recipeSourceText: $0.source ?? "", recipeHealthText: strongSelf.getStringFromArr(strArr: $0.healthLabels, separator: ","))}
             
@@ -234,7 +194,6 @@ class RecipesPresenter: AnyRecipesPresenter {
         self.separateOrdersContainer.recipesWillSet =
         {
                 [weak self]
-                recipesCount,limito
                 in
             guard let strongSelf = self else{return}
             strongSelf.view?.collectionViewWillLoad()
@@ -244,19 +203,8 @@ class RecipesPresenter: AnyRecipesPresenter {
             [weak self]
             in
         guard let strongSelf = self else{return}
-//        strongSelf.view?.collectionViewWillLoad()
            guard let recipesRoot = strongSelf.recipesRoot else { return }
-//                let diff = recipesCount-limito
-//            guard (diff < 3) && diff != 0 && (1000>recipesCount) else{return}
-              
-        
-//            strongSelf.interactor?.getRecipes(searchKey: strongSelf.searchKey,healthFilters: [strongSelf.healthFiltersContainer.apiParamsFilters[strongSelf.scopeButtonIndex]].filter{!$0.isEmpty}, nextPageTag: (recipesRoot.nextPageUrlStr.slice(from: "_cont=", to: "&")) ?? "")
                 strongSelf.appendGroupOfRecipes(isScrollToTop: false, nextPageTag:(recipesRoot.nextPageUrlStr.slice(from: "_cont=", to: "&")) ?? "")
-        
-    
-        
-        
-        
     }
         
         
@@ -289,12 +237,6 @@ class RecipesPresenter: AnyRecipesPresenter {
                 separateOrdersContainer.recipes = {separateOrdersContainer.recipes}()
             }
     }
-    func changeLanguage() {
-//        MOLH.setLanguageTo(MOLHLanguage.currentAppleLanguage() == "en" ? "ar" : "en")
-//
-//        isValidName
-//        MOLH.reset()
-    }
     
 }
 
@@ -311,7 +253,6 @@ extension RecipesPresenter{
        
         self.searchKey = searchText
         self.scopeButtonIndex = scopeButtonIndex
-//            presenter.showRecipes(with: searchText, healthParams: [presenter.healthFiltersContainer.apiParamsFilters[scopeButtonIndex]])
         self.appendGroupOfRecipes(isScrollToTop: true,nextPageTag: "")
     
     var lastSuggestion:[String] = []
@@ -323,7 +264,6 @@ extension RecipesPresenter{
     }
     lastSuggestion.append(searchText)
     NetworkHelper.lastSuggestion = lastSuggestion
-//                return scopeMatch && searchTextMatch
         
     }
     func interactorDidFetchRecipes(with result: Result<Recipes_Root, Result_Error>) {
@@ -336,22 +276,9 @@ extension RecipesPresenter{
     }
     func update(with recipesRoot: Recipes_Root) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
-            print(recipesRoot.hits.map{$0.recipe.label})
-//            let numOfItemsPerAppending = 3
-            print(recipesRoot)
             self.recipesRoot = RecipesRoot(fromIndex: recipesRoot.from ?? 0, toIndex: recipesRoot.to ?? 0, count: recipesRoot.count ?? 0, nextPageUrlStr: recipesRoot.links?.next.href ?? "", recipes: [])
             self.separateOrdersContainer.recipes += recipesRoot.hits.map{$0.recipe}
-            print(self.separateOrdersContainer.recipes.count)
-//            if recipes.count > numOfItemsPerAppending{
-//                for index in 0..<numOfItemsPerAppending{
-//                    self.separateOrdersContainer.recipes.append(recipes[index])
-//                }
-//            }else{
-//                self.separateOrdersContainer.recipes.append(contentsOf: recipes)}
-//            self.indexFrom += 3
-//            self.indexTo += 3
-            
-//            self.interactor?.loadRecipes()
+            self.separateOrdersContainer.totalCount = recipesRoot.count ?? 0
         }
         
     }
@@ -366,21 +293,9 @@ extension RecipesPresenter{
     }
     
     func updateCellSize(recipeIndex:Int,widthForItem:CGFloat,cellSizeHandler:((CGFloat)->Void)?){
-//        let _ = getFromApiData(recipeIndex: recipeIndex)
         cellSizeHandler?(heightFor(using: widthForItem-200, recipeIndex: recipeIndex))
     }
-    
-//    func getFromApiData(recipeIndex:Int)->RecipeStruct{
-//        let recipeStrct = separateOrdersContainer.arrOfSeparateOrders[recipeIndex]
-////        self.recipeContainer.recipeNameText = "lang".localized == "en" ? (recipe.englishName ?? "") : (recipe.arabicName ?? "")
-//        self.recipeContainer.recipeNameText = recipeStrct.recipe.label ?? ""
-//        self.recipeContainer.recipeSourceText = recipeStrct.recipe.source ?? ""
-//        self.recipeContainer.recipeHealthText = getStringFromArr(strArr: recipeStrct.recipe.healthLabels, separator: ",")
-////        self.recipeContainer.recipePriceText = strDidShortenPrice(price: recipe.)
-//        return recipeStrct
-//    }
-    
-    
+
     //CustomLayoutDelegate method
     func heightFor(using width: CGFloat,recipeIndex: Int) -> CGFloat {
         //Implement your own logic to return the height for specific cell
@@ -388,7 +303,7 @@ extension RecipesPresenter{
         let recipeTitleHeight = recipes[recipeIndex].recipeNameText.sizeOfString(constrainedToWidth: width, font: UIFont.systemFont(ofSize: 19, weight: .regular)).height
         let recipeSourceTextHeight = recipes[recipeIndex].recipeSourceText.sizeOfString(constrainedToWidth: width, font: UIFont.systemFont(ofSize: 17, weight: .bold)).height
         let recipeHealthTextHeight = recipes[recipeIndex].recipeHealthText.sizeOfString(constrainedToWidth: width, font: UIFont.systemFont(ofSize: 12, weight: .regular)).height
-        let height = recipeTitleHeight+recipeSourceTextHeight+recipeHealthTextHeight+250
+        let height = recipeTitleHeight+recipeSourceTextHeight+recipeHealthTextHeight+270
         
         return height
     }
