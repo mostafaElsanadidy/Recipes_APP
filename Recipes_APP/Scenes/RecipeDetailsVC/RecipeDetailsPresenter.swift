@@ -59,9 +59,10 @@ extension RecipeDetailsPresenter{
         DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
 //            print(recipes.map{$0.recipe.label})
 //            let numOfItemsPerAppending = 3
-            
-            self.recipeContainer = RecipeContainer(recipeNameText: recipe.label ?? "", recipePicUrl: URL(string: recipe.image ?? ""),recipePublisherUrlText: recipe.url, recipeIngredientsText: recipe.ingredientLines.joined(separator: "\n"))
-            self.view?.update(with: self.recipeContainer!)
+            [weak self] in
+                guard let strongSelf = self else{return}
+            strongSelf.recipeContainer = RecipeContainer(recipeNameText: recipe.label ?? "", recipePicUrl: URL(string: recipe.image ?? ""),recipePublisherUrlText: recipe.url, recipeIngredientsText: recipe.ingredientLines.joined(separator: "\n"))
+            strongSelf.view?.update(with: strongSelf.recipeContainer!)
 //            if recipes.count > numOfItemsPerAppending{
 //                for index in 0..<numOfItemsPerAppending{
 //                    self.separateOrdersContainer.recipes.append(recipes[index])

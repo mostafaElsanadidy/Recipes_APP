@@ -30,15 +30,7 @@ class RecipeDetailsVC: UIViewController {
     @IBAction func showPublisherWebsite(_ sender: UIButtonX) {
         presenter?.showPublisherWebsite()
     }
-    func showTutorial(_ which: Int) {
-        if let url = URL(string: "https://www.hackingwithswift.com/read/\(which + 1)") {
-            let config = SFSafariViewController.Configuration()
-            config.entersReaderIfAvailable = true
-
-            let vc = SFSafariViewController(url: url, configuration: config)
-            present(vc, animated: true)
-        }
-    }
+    
     /*
     // MARK: - Navigation
 
@@ -61,6 +53,10 @@ extension RecipeDetailsVC:AnyRecipeDetailsView{
         print(error.error_Desc)
     }
     func update(with recipe: RecipeContainer){
+        view.viewWithTag(100)?.isHidden = false
+        view.viewWithTag(101)?.isHidden = false
+        view.viewWithTag(102)?.isHidden = false
+        
         recipeTitleLabel.text = recipe.recipeNameText
         
         if let sp_url = recipe.recipePicUrl {

@@ -23,10 +23,13 @@ protocol AnyRecipesView:AnyView{
     
     var presenter: AnyRecipesPresenter? {get set}
 //    func update(with recipes:[Hit])
-    func collectionViewDidLoad(isScrollToTop:Bool)
+    func collectionViewDidLoad(isScrollToTop:Bool,recipesCount:Int)
     func collectionViewWillLoad()
-    
+    func refreshSearchBar(dropDownSelectedItem:String)
+    func disappearDropDown()
     func loadRecipes()
+    func refreshView(isValidSearchKey:Bool)
+    func updateDropDown(lastSuggestion:[String])
   //  func updateSelectedRecipes(with recipes:[SelectedRecipe]?)
     
 }
@@ -39,6 +42,13 @@ class HomeVC: UIViewController,AnyRecipesView {
 //    }
     
     @IBOutlet weak var noResultsView: UIView!
+    @IBOutlet weak var optionsCollectionView: UICollectionView!
+    @IBOutlet weak var recipeDetailsCollection: UICollectionView!
+    @IBOutlet weak var collectionsStackView: UIStackView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    var presenter: AnyRecipesPresenter?
+
     
     var dropDown = DropDown(){
         didSet{
@@ -47,17 +57,10 @@ class HomeVC: UIViewController,AnyRecipesView {
             }
         }
     }
-    
+//    notificationCenter.addObserver(self, selector: #selector(saveSecretMessage), name: UIApplication.willResignActiveNotification, object: nil)
 
     
-    @IBOutlet weak var optionsCollectionView: UICollectionView!
-    @IBOutlet weak var recipeDetailsCollection: UICollectionView!
-    @IBOutlet weak var collectionsStackView: UIStackView!
-    @IBOutlet weak var searchBar: UISearchBar!
-    
-    var presenter: AnyRecipesPresenter?
-
-    let searchBarController = UISearchController()
+//    let searchBarController = UISearchController()
 //    var restaurantTuple:(key:String,name:String)?
     
    // let context = ad.persistentContainer.viewContext
@@ -151,7 +154,7 @@ class HomeVC: UIViewController,AnyRecipesView {
     }
     
     @objc func hideDropDown() {
-        if dropDown != nil && dropDown.anchorView?.plainView != nil {
+        if dropDown.anchorView?.plainView != nil {
             dropDown.anchorView?.plainView.removeFromSuperview()
         }
     }
@@ -187,34 +190,68 @@ class HomeVC: UIViewController,AnyRecipesView {
 //        DispatchQueue.main.asyncAfter(deadline: .now()+0.1){
         
             self.dropDown.anchorView = searchBar // UIView or UIBarButtonItem
-            self.dropDown.dataSource = ["ذكر","انثى","chicken","salt"]
+//            self.dropDown.dataSource = ["ذكر","انثى","chicken","salt"]
+        presenter?.changeDropDownDataSource()
             self.dropDown.bottomOffset = CGPoint(x: 0, y:(self.dropDown.anchorView?.plainView.bounds.height)!)
             self.dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
           print("Selected item: \(item) at index: \(index)")
-            searchBar.text = item
-            searchBar.showsCancelButton = false
-            searchBar.showsScopeBar = true
-        //    self.delegate?.changeProgressBar(textField: self.genderTextField, isValidValue: true)
-            
-           // genderTextField.endEditing(true)
-            searchBar.endEditing(true)
-                let scopeButtonIndex = searchBar.selectedScopeButtonIndex
-                let searchText = searchBar.text!
-                filterForSearchTextAndScopeButton(searchText:searchText,scopeButtonIndex: scopeButtonIndex)
+                presenter?.dropDownDidSelected(dropDownSelectedItem: item)
         }
             self.dropDown.cancelAction = {
                 [unowned self] in
-                self.dropDown.anchorView?.plainView.endEditing(true)
-                self.searchBar.showsCancelButton = false
+                presenter?.dropDownDidCancelAction()
             }
             self.dropDown.show()
         //}
     }
     
-    func collectionViewDidLoad(isScrollToTop:Bool){
+}
+
+extension HomeVC{
+    func loadRecipes() {
+        setup_Collection()
+         initSearchBar()
+         
+    }
+    func refreshView(isValidSearchKey: Bool) {
+        noResultsView.isHidden = !isValidSearchKey
+        collectionsStackView.isHidden = isValidSearchKey
+        if !isValidSearchKey{
+            self.show_Popup(body: "search key is not valid", type: .single, status: .failure)}
+        else{
+            dropDown.hide()
+    //            guard let presenter = presenter else { return }
+            recipeDetailsCollection.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        }
+    }
+    func refreshSearchBar(dropDownSelectedItem:String) {
+        searchBar.text = dropDownSelectedItem
+        searchBar.showsCancelButton = false
+        searchBar.showsScopeBar = true
+    //    self.delegate?.changeProgressBar(textField: self.genderTextField, isValidValue: true)
+        
+       // genderTextField.endEditing(true)
+        searchBar.endEditing(true)
+            let scopeButtonIndex = searchBar.selectedScopeButtonIndex
+            let searchText = searchBar.text!
+            filterForSearchTextAndScopeButton(searchText:searchText,scopeButtonIndex: scopeButtonIndex)
+    }
+    
+    func disappearDropDown() {
+        self.dropDown.anchorView?.plainView.endEditing(true)
+        self.searchBar.showsCancelButton = false
+    }
+    
+    func updateDropDown(lastSuggestion:[String]) {
+        self.dropDown.dataSource = lastSuggestion
+    }
+    
+    func collectionViewDidLoad(isScrollToTop:Bool,recipesCount:Int){
             
 //            recipesHitsTableView.tableFooterView!.hideProgressHUD(hud: hud!)
-            
+        
+            noResultsView.isHidden = recipesCount != 0
+            collectionsStackView.isHidden = recipesCount == 0
             showActivityView(isShow: false)
             recipeDetailsCollection.reloadData()
         if isScrollToTop{
@@ -225,13 +262,5 @@ class HomeVC: UIViewController,AnyRecipesView {
 //        if isScrollToTop{
 //            recipeDetailsCollection.setContentOffset(CGPoint(x: 0, y: 0), animated: true)}
             showActivityView(isShow: true)
-    }
-}
-
-extension HomeVC{
-    func loadRecipes() {
-        setup_Collection()
-         initSearchBar()
-         
     }
 }

@@ -80,7 +80,7 @@
                                     <color key="tintColor" systemColor="tertiarySystemFillColor"/>
                                 </imageView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="M2t-Ga-XeJ">
-                                    <rect key="frame" x="103.5" y="238" width="207" height="173.5"/>
+                                    <rect key="frame" x="103.5" y="228.5" width="207" height="192.5"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emoji-2" translatesAutoresizingMaskIntoConstraints="NO" id="1i8-Xi-bX7">
                                             <rect key="frame" x="43.5" y="0.0" width="120" height="120"/>
@@ -89,8 +89,8 @@
                                                 <constraint firstAttribute="width" constant="120" id="R3c-e5-mcl"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry there are no search results , please enter " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AhG-uF-hnB">
-                                            <rect key="frame" x="9.5" y="135" width="188" height="38.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry there are no search results , please enter another search key" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AhG-uF-hnB">
+                                            <rect key="frame" x="9.5" y="135" width="188" height="57.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>

@@ -18,6 +18,7 @@
 		ED119D142923A1F900161D09 /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED119D122923A1F900161D09 /* AlertVC.swift */; };
 		ED119D152923A1F900161D09 /* AlertVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED119D132923A1F900161D09 /* AlertVC.xib */; };
 		ED119D182923A57500161D09 /* VC+CoreDataProcesses(CRUD).swift in Sources */ = {isa = PBXBuildFile; fileRef = ED119D172923A57500161D09 /* VC+CoreDataProcesses(CRUD).swift */; };
+		ED3469C7292693FE00816FF6 /* ApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3469C6292693FD00816FF6 /* ApiTests.swift */; };
 		ED4248D52924E0D700F53D2B /* RecipeDetailsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED4248D32924E0D600F53D2B /* RecipeDetailsVC.xib */; };
 		ED4248D62924E0D700F53D2B /* RecipeDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4248D42924E0D600F53D2B /* RecipeDetailsVC.swift */; };
 		ED4248D82924E5D400F53D2B /* DetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4248D72924E5D400F53D2B /* DetailsRouter.swift */; };
@@ -74,8 +75,8 @@
 		EDAC53562922CAD0007F4984 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC53312922CACF007F4984 /* UIImage.swift */; };
 		EDAC53572922CAD0007F4984 /* Reload.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC53322922CACF007F4984 /* Reload.swift */; };
 		EDAC53652922CDCB007F4984 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC535E2922CDCA007F4984 /* Router.swift */; };
-		EDAC53662922CDCB007F4984 /* SearchVC+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC535F2922CDCA007F4984 /* SearchVC+Collection.swift */; };
-		EDAC53682922CDCB007F4984 /* SearchVC+SearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC53612922CDCB007F4984 /* SearchVC+SearchBarDelegate.swift */; };
+		EDAC53662922CDCB007F4984 /* HomeVC+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC535F2922CDCA007F4984 /* HomeVC+Collection.swift */; };
+		EDAC53682922CDCB007F4984 /* HomeVC+SearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC53612922CDCB007F4984 /* HomeVC+SearchBarDelegate.swift */; };
 		EDAC53692922CDCB007F4984 /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC53622922CDCB007F4984 /* Interactor.swift */; };
 		EDAC536A2922CDCB007F4984 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC53632922CDCB007F4984 /* HomeVC.swift */; };
 		EDAC536B2922CDCB007F4984 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAC53642922CDCB007F4984 /* Presenter.swift */; };
@@ -112,6 +113,7 @@
 		ED119D122923A1F900161D09 /* AlertVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
 		ED119D132923A1F900161D09 /* AlertVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertVC.xib; sourceTree = "<group>"; };
 		ED119D172923A57500161D09 /* VC+CoreDataProcesses(CRUD).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VC+CoreDataProcesses(CRUD).swift"; sourceTree = "<group>"; };
+		ED3469C6292693FD00816FF6 /* ApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiTests.swift; sourceTree = "<group>"; };
 		ED4248D32924E0D600F53D2B /* RecipeDetailsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecipeDetailsVC.xib; sourceTree = "<group>"; };
 		ED4248D42924E0D600F53D2B /* RecipeDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetailsVC.swift; sourceTree = "<group>"; };
 		ED4248D72924E5D400F53D2B /* DetailsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsRouter.swift; sourceTree = "<group>"; };
@@ -173,8 +175,8 @@
 		EDAC53312922CACF007F4984 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		EDAC53322922CACF007F4984 /* Reload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reload.swift; sourceTree = "<group>"; };
 		EDAC535E2922CDCA007F4984 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		EDAC535F2922CDCA007F4984 /* SearchVC+Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SearchVC+Collection.swift"; sourceTree = "<group>"; };
-		EDAC53612922CDCB007F4984 /* SearchVC+SearchBarDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SearchVC+SearchBarDelegate.swift"; sourceTree = "<group>"; };
+		EDAC535F2922CDCA007F4984 /* HomeVC+Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HomeVC+Collection.swift"; sourceTree = "<group>"; };
+		EDAC53612922CDCB007F4984 /* HomeVC+SearchBarDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HomeVC+SearchBarDelegate.swift"; sourceTree = "<group>"; };
 		EDAC53622922CDCB007F4984 /* Interactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
 		EDAC53632922CDCB007F4984 /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		EDAC53642922CDCB007F4984 /* Presenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 			isa = PBXGroup;
 			children = (
 				EDAC52EE2922CA11007F4984 /* Recipes_APPTests.swift */,
+				ED3469C6292693FD00816FF6 /* ApiTests.swift */,
 			);
 			path = Recipes_APPTests;
 			sourceTree = "<group>";
@@ -437,8 +440,8 @@
 				EDAC535E2922CDCA007F4984 /* Router.swift */,
 				ED119CFF2923A1E000161D09 /* HomeVC.xib */,
 				EDAC53632922CDCB007F4984 /* HomeVC.swift */,
-				EDAC535F2922CDCA007F4984 /* SearchVC+Collection.swift */,
-				EDAC53612922CDCB007F4984 /* SearchVC+SearchBarDelegate.swift */,
+				EDAC535F2922CDCA007F4984 /* HomeVC+Collection.swift */,
+				EDAC53612922CDCB007F4984 /* HomeVC+SearchBarDelegate.swift */,
 			);
 			path = SearchScreen;
 			sourceTree = "<group>";
@@ -644,7 +647,7 @@
 				EDAC53462922CAD0007F4984 /* UIViewXRadialGradient.swift in Sources */,
 				EDAC53352922CAD0007F4984 /* APIRouter.swift in Sources */,
 				EDAC534E2922CAD0007F4984 /* UIVisualEffectViewX.swift in Sources */,
-				EDAC53662922CDCB007F4984 /* SearchVC+Collection.swift in Sources */,
+				EDAC53662922CDCB007F4984 /* HomeVC+Collection.swift in Sources */,
 				EDAC53362922CAD0007F4984 /* API_Get.swift in Sources */,
 				EDAC53452922CAD0007F4984 /* Ingredient.swift in Sources */,
 				EDAC53382922CAD0007F4984 /* APIClient_Ext.swift in Sources */,
@@ -670,7 +673,7 @@
 				EDAC53392922CAD0007F4984 /* TotalNutrient.swift in Sources */,
 				ED4248DC2924E74300F53D2B /* RecipeDetailsInteractor.swift in Sources */,
 				EDAC534D2922CAD0007F4984 /* UIViewX.swift in Sources */,
-				EDAC53682922CDCB007F4984 /* SearchVC+SearchBarDelegate.swift in Sources */,
+				EDAC53682922CDCB007F4984 /* HomeVC+SearchBarDelegate.swift in Sources */,
 				EDAC53532922CAD0007F4984 /* Card View.swift in Sources */,
 				EDAC53652922CDCB007F4984 /* Router.swift in Sources */,
 				EDAC52D72922CA02007F4984 /* SceneDelegate.swift in Sources */,
@@ -698,6 +701,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED3469C7292693FE00816FF6 /* ApiTests.swift in Sources */,
 				EDAC52EF2922CA11007F4984 /* Recipes_APPTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
